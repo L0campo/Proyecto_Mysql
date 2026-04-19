@@ -1,0 +1,97 @@
+🥤 Gaseosas del Valle S.A. — Base de Datos MySQL
+
+📍 Girón, Santander — Colombia
+📦 Sistema de gestión de pedidos, inventario y clientes
+🛠️ Tecnología: MySQL 8.0
+
+🚀 Descripción del Proyecto
+
+Gaseosas del Valle S.A. es una empresa distribuidora de bebidas que anteriormente manejaba su información en hojas de cálculo, lo que causaba:
+
+❌ Errores en registros
+❌ Pérdida de datos históricos
+❌ Falta de control en precios y ventas
+
+💡 Solución: Implementación de una base de datos relacional en MySQL que permite:
+
+📊 Gestión centralizada de productos, clientes y pedidos
+🧮 Cálculo automático de totales con IVA
+📦 Control automático de inventario
+🕵️ Auditoría de cambios de precio
+📈 Reportes y análisis de datos
+🧩 Modelo de Datos
+🗂️ Entidades Principales
+Entidad	Tipo	Descripción
+productos	🟢 Maestra	Información de productos
+clientes	🟢 Maestra	Datos de clientes
+sedes	🟢 Maestra	Ubicaciones físicas
+pedidos	🔵 Transaccional	Registro de compras
+detalle_pedido	🔗 Intermedia	Relación productos–pedidos
+auditoria_precios	🕵️ Auditoría	Historial de cambios
+🔗 Relaciones
+👤 Cliente → 🧾 Pedido (1:N)
+🏢 Sede → 🧾 Pedido (1:N)
+🧾 Pedido → 📦 Detalle (1:N)
+📦 Producto → 📦 Detalle (1:N)
+📦 Producto → 🕵️ Auditoría (1:N)
+
+💡 La relación muchos a muchos (N:N) entre pedidos y productos se resuelve con detalle_pedido.
+
+⚙️ Funciones
+🧮 Calcular Total con IVA (19%)
+SELECT fn_calcular_total_con_iva(1);
+✔ Suma subtotales
+✔ Aplica IVA (19%)
+✔ Maneja valores NULL
+📦 Validar Stock
+
+Verifica disponibilidad antes de vender:
+
+✅ OK → Stock suficiente
+⚠️ ALERTA → Queda bajo mínimo
+❌ SIN STOCK → Insuficiente
+🚫 ERROR → Datos inválidos
+🔄 Triggers
+📉 Actualizar Stock
+Evento: AFTER INSERT
+Acción: Descuenta inventario automáticamente
+Seguridad: Bloquea venta si no hay stock
+🕵️ Auditoría de Precios
+Evento: BEFORE UPDATE
+Registra cambios de precio automáticamente
+Evita registros innecesarios
+👁️ Vistas
+Vista	Función
+📊 resumen_pedidos_por_sede	Ventas por sede
+⚠️ productos_bajo_stock	Alertas de inventario
+👥 clientes_activos	Clientes frecuentes
+📊 Consultas Analíticas
+
+Incluye consultas como:
+
+🔍 Productos con bajo stock
+📅 Pedidos entre fechas
+🔎 Búsqueda por nombre
+📦 Productos más vendidos
+🏆 Cliente con más pedidos
+📊 Totales por sede
+📁 Scripts Incluidos
+Archivo	Contenido
+database.sql	Tablas + datos iniciales
+functions.sql	Funciones
+triggers.sql	Triggers
+views_and_queries.sql	Vistas + consultas
+🔮 Futuras Mejoras
+🏢 Nuevas sedes (Bucaramanga, Piedecuesta)
+👤 Sistema de usuarios y roles
+🚚 Gestión de proveedores
+❌ Historial de pedidos anulados
+⚡ Particionamiento por fecha
+💾 Backups automáticos
+🧠 Conclusión
+
+Este sistema permite transformar un proceso manual en uno automatizado, seguro y escalable, mejorando:
+
+📉 Reducción de errores
+📈 Toma de decisiones
+🔐 Control y trazabilidad
