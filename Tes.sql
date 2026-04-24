@@ -41,6 +41,21 @@ SELECT * FROM vista_resumen_sedes
 ORDER BY valor_total_sin_iva DESC;
 
 
+CREATE OR REPLACE VIEW vista_resumen_sedes AS
+SELECT
+    s.nombre_sede,
+    COUNT(p.id_pedido)                    AS total_pedidos,
+    COALESCE(SUM(p.total_sin_iva),  0)    AS valor_total_sin_iva,
+    COALESCE(AVG(p.total_sin_iva),  0)    AS promedio_por_pedido
+FROM sedes s
+LEFT JOIN pedidos p ON p.id_sede = s.id_sede
+GROUP BY
+    s.id_sede,
+    s.nombre_sede;
+
+
+SELECT * FROM vista_resumen_sedes
+ORDER BY valor_total_sin_iva DESC;
 
 
 
