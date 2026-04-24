@@ -22,7 +22,7 @@ BEGIN
     -- Aplicar IVA del 19%
     SET v_total_con_iva = v_subtotal * 1.19;
 
-    RETURN ROUND(v_total_con_iva, 2);
+    RETURN ROUND(v_total_con_iva, 2);<<
 END$$
 
 DELIMITER ;
